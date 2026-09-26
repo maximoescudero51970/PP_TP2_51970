@@ -9,39 +9,44 @@ Repositorio correspondiente al **Trabajo Práctico N° 2** de la materia **Parad
 * **Alumno:** Máximo Escudero
 * **Legajo:** 51970
 * **Carrera:** Ingeniería en Sistemas de Información
-* **Institución:** Universidad Tecnológica Nacional - Facultad Regional Mendoza (UTN - FRM)
+* **Institución:** Universidad Tecnológica Nacional - Facultad Regional Mendoza (UTN - FRM)[cite: 12]
 
 ---
 
 ## 📋 Descripción General del Proyecto
 
-Este proyecto escala el Sistema de Gestión de Eventos Universitarios, aplicando de forma avanzada los conceptos de la **Programación Orientada a Objetos (POO)** en Java (JDK 25). La arquitectura del software se encuentra modularizada en paquetes que mejoran el encapsulamiento, permitiendo el manejo robusto de excepciones, persistencia binaria, uso de interfaces, genéricos avanzados y concurrencia con hilos.
+Este proyecto escala el **Sistema de Gestión de Eventos Universitarios**, aplicando conceptos avanzados de la **Programación Orientada a Objetos (POO)** en Java (JDK 25)[cite: 12]. La arquitectura del software está modularizada en paquetes independientes para garantizar un diseño robusto, contemplando control de excepciones, persistencia de datos mediante flujos binarios, polimorfismo con interfaces, colecciones con genéricos y ejecución concurrente basada en hilos[cite: 12].
 
 ---
 
-## 🏗️ Arquitectura y Estructura de Paquetes
+## 🏗️ Estructura de Paquetes y Componentes
 
-El código fuente se organiza según el modelo conceptual en los siguientes paquetes:
+El código fuente se encuentra organizado en el siguiente esquema modular:
 
-* **`modelo`**: Contiene las clases principales del dominio del negocio (`EventoUniversitario`, `Sala`, `Estudiante`, `Inscripcion`), la clase abstracta `Actividad` y sus subcategorías concretas (`Charla`, `Taller`, `Curso`)[cite: 12].
-* **`certificacion`**: Contiene la interfaz `Certificable` que define la emisión de certificados de asistencia[cite: 12].
-* **`exepciones`**: Aloja la excepción personalizada `CupoExcedidoException` para el control de capacidad de asistentes[cite: 12].
-* **`hilos`**: Contiene la clase concurrente `EnvioTicketsThread` orientada al envío en segundo plano de los tickets de acceso[cite: 12].
+* **`modelo`**: Contiene las entidades principales del sistema (`EventoUniversitario`, `Sala`, `Estudiante`, `Inscripcion`), la clase abstracta `Actividad` y sus respectivas especializaciones concretas (`Charla`, `Taller`, `Curso`)[cite: 12].
+* **`certificacion`**: Aloja la interfaz `Certificable` utilizada para definir la emisión de constancias de asistencia[cite: 12].
+* **`exepciones`**: Contiene la excepción personalizada de tipo chequeado `CupoExcedidoException` para el manejo de tolerancia a fallos[cite: 12].
+* **`hilos`**: Contiene la clase `EnvioTicketsThread` diseñada para procesar el envío concurrente de tickets[cite: 12].
 
 ---
 
-## 🛠️ Resoluciones Técnicas por Ejercicio
+## 🛠️ Resoluciones Técnicas Implementadas
 
-### 🔹 Ejercicio 1: Modularización, Excepciones y Persistencia
-* **Modularización:** Separación limpia de responsabilidades mediante paquetes independientes[cite: 12].
-* **Excepciones Personalizadas:** Creación e implementación de `CupoExcedidoException` (heredando de `Exception`) para interrumpir y controlar de forma granular cuando un cupo máximo es superado[cite: 12].
-* **Persistencia por Serialización:** Utilización de flujos de bytes (`FileOutputStream`, `ObjectOutputStream`, `FileInputStream`, `ObjectInputStream`) para guardar y recuperar el estado completo del `EventoUniversitario` y sus colecciones en archivos binarios locales (`.dat`)[cite: 12].
+1. **Excepciones y Tolerancia a Fallos:** Control estricto de cupos máximos en las actividades mediante el lanzamiento explícito (`throw`/`throws`) de `CupoExcedidoException` y su captura en la clase principal[cite: 12].
+2. **Interfaces y Polimorfismo:** Uso de la interfaz `Certificable` implementada selectivamente en `Taller` y `Curso`, cumpliendo con las reglas de negocio de la cátedra[cite: 12].
+3. **Serialización:** Mecanismo de persistencia de objetos mediante `FileOutputStream` y `ObjectOutputStream` para almacenar y recuperar el estado del evento en archivos binarios (`.dat`)[cite: 12].
+4. **Genéricos y Wildcards:** 
+   * Filtrado tipado de actividades mediante métodos parametrizados acotados (`<T extends Actividad>`)[cite: 12].
+   * Cálculo polimórfico de costos usando comodines (`List<? extends Actividad>`)[cite: 12, 16].
+5. **Concurrencia (Hilos):** Procesamiento en segundo plano de los tickets de acceso a través de la clase `EnvioTicketsThread` (extendiendo de `Thread`), permitiendo que el flujo principal de la aplicación continúe ejecutándose sin bloqueos[cite: 12].
 
-### 🔹 Ejercicio 2: Interfaces y Polimorfismo
-* **Interfaz `Certificable`:** Define el comportamiento para la emisión de documentos de validez académica[cite: 12].
-* **Aplicación Selectiva:** Implementada polimórficamente en las clases `Taller` y `Curso`, excluyendo explícitamente a las `Charla` según los requerimientos de negocio[cite: 12].
+---
 
-### 🔹 Ejercicio 3: Genéricos (Generics) y Wildcards
-* **Métodos Parametrizados Acotados:** Implementación en `EventoUniversitario` del método para filtrar actividades garantizando el tipado estricto en tiempo de compilación[cite: 12]:
-  ```java
-  public <T Actividad extends> List<T> filtrarActividadesPorTipo(Class<T> tipo)
+## 📥 ¿Cómo clonar y ejecutar el proyecto?
+
+Para probar el funcionamiento de este desarrollo en tu computadora, seguí estos pasos:
+
+### 1. Clonar el Repositorio
+Abrí una terminal en tu equipo y ejecutá el siguiente comando para clonar el repositorio mediante HTTPS:
+```bash
+git clone [https://github.com/maximoescudero51970/PP_TP2_51970.git](https://github.com/maximoescudero51970/PP_TP2_51970.git)
