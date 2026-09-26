@@ -1,3 +1,8 @@
+package modelo.actividades;
+
+import exepciones.CupoExcedidoException;
+import modelo.Estudiante;
+import modelo.Inscripcion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +21,21 @@ public abstract class Actividad {
         this.cupoMaximo = cupoMaximo;
         this.inscripciones = new ArrayList<>();
     }
-    public Inscripcion inscribir(Estudiante estudiante) {
-        Inscripcion nuevaInscripcion = new Inscripcion(estudiante, LocalDate.now(), "Confirmada");
+
+    public Actividad() {
+        super();
+    }
+
+    public Inscripcion inscribir (Estudiante estudiante) throws CupoExcedidoException {
+
+        if (this.inscripciones.size() >= this.cupoMaximo) {
+            throw new CupoExcedidoException("El cupo para la actividad está lleno.");
+        }
+        Inscripcion nuevaInscripcion = new Inscripcion(estudiante, java.time.LocalDate.now(), "Confirmada");
         this.inscripciones.add(nuevaInscripcion);
         return nuevaInscripcion;
     }
+
     public void mostrarInscripciones() {
         System.out.println("--- Inscriptos en: " + this.titulo + " ---");
         for (Inscripcion i : inscripciones) {
@@ -30,6 +45,13 @@ public abstract class Actividad {
     public abstract double calcularCostoMateriales();
     public abstract String getTipo();
     public final void mostrarIdentificacion() {
-        System.out.println("Actividad [" + getTipo() + "]: " + this.titulo);
+        System.out.println("modelo.actividades.Actividad [" + getTipo() + "]: " + this.titulo);
+    }
+    public String getTitulo() {
+        return this.titulo;
+    }
+
+    public List<Inscripcion> getInscripciones() {
+        return this.inscripciones;
     }
 }

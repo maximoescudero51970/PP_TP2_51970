@@ -1,4 +1,8 @@
-public class Taller extends Actividad {
+package modelo.actividades;
+
+import modelo.Estudiante;
+
+public class Taller extends Actividad implements certificacion.Certificable, java.io.Serializable {
     private boolean requiereNotebook;
 
     public Taller(int id, String titulo, int cupoMaximo, boolean requiereNotebook) {
@@ -15,6 +19,12 @@ public class Taller extends Actividad {
     }
     @Override
     public String getTipo() {
-        return "Taller";
+        return "modelo.actividades.Taller";
     }
+
+    @Override
+    public String generarCertificado(Estudiante estudiante) {
+        return "Certificado del Taller: " + this.titulo + " otorgado a " + estudiante.getNombre();
+    }
+
 }

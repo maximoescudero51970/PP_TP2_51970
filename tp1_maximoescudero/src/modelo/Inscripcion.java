@@ -1,18 +1,17 @@
-import java.time.LocalDate;
+package modelo;
 
-public class Inscripcion {
+import java.io.Serializable;
+import java.time.LocalDate;
+public class Inscripcion implements Serializable {
     private LocalDate fecha;
     private String estado;
     private Estudiante estudiante; // Agregamos la referencia al estudiante
 
-    // Constructor
     public Inscripcion(Estudiante estudiante, LocalDate fecha, String estado) {
         this.estudiante = estudiante;
         this.fecha = fecha;
         this.estado = estado;
     }
-
-    // Getters para poder consultar los datos después
     public Estudiante getEstudiante() {
         return estudiante;
     }
